@@ -1,12 +1,12 @@
 <template>
     <v-content>
-        <router-view></router-view>
+        I'm the components View !
     </v-content>
 </template>
 
 <script>
     export default {
-        name: "Home"
+        name: "Components"
     }
 </script>
 
