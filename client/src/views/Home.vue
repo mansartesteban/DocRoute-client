@@ -1,12 +1,19 @@
 <template>
-    <v-content>
-        <router-view></router-view>
-    </v-content>
+    <v-container fluid>
+        <left-menu></left-menu>
+        <v-content app>
+            <router-view></router-view>
+        </v-content>
+    </v-container>
+
 </template>
 
 <script>
     export default {
-        name: "Home"
+        name: "Home",
+        components: {
+            LeftMenu: () => import("@/components/LeftMenu")
+        }
     }
 </script>
 

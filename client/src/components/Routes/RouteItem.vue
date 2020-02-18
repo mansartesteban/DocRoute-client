@@ -2,13 +2,16 @@
     <div class="route-item">
         <v-card
             dense
-            width="250"
+            width="230"
             tile
+            class="mb-3"
         >
-            <v-toolbar color="primary" dark dense
-                height="32"
+            <v-toolbar color="primary"
+                       dark
+                       dense
+                       height="32"
             >
-                <v-toolbar-title class="ma-0">
+                <v-toolbar-title>
                     {{ name }}
                 </v-toolbar-title>
             </v-toolbar>
@@ -23,8 +26,9 @@
                     small
                     pill
                     class="mr-3"
+                    :color="method.color"
                 >
-                    {{ method }}
+                    {{ method.label }}
                 </v-chip>
             </v-card-text>
         </v-card>
@@ -47,13 +51,6 @@
                 type: Array,
                 required: true
             }
-            // path: "/app",
-            // name: "__App",
-            // methods: [
-            //     "POST",
-            //     "GET"
-            // ]
-
         }
     }
 </script>
