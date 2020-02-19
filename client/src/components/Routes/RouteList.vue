@@ -1,5 +1,5 @@
 <template>
-    <div class="route-list">
+    <div class="route-list d-inline-block pr-6">
         <!--<route-item-->
                 <!--:path="this.route.path"-->
                 <!--:name="this.route.name"-->
@@ -7,10 +7,11 @@
         <!--&gt;-->
         <!--</route-item>-->
         <route-item
-                v-for="route2 in getRoutes"
+                v-for="route2 in route"
                 :path="route2.path"
                 :name="route2.name"
                 :methods="route2.methods"
+                :id="route2.id"
         >
         </route-item>
     </div>
@@ -35,25 +36,50 @@
         },
         data: () => {
             return {
-                route: {
-                    path: "/app",
-                    name: "__App",
-                    methods: [
-                        {
-                            label: "POST",
-                            color: "primary"
-                        },
-                        {
-                            label: "GET",
-                            color: "success"
-                        }
-                    ]
-                }
+                route: [
+                    {
+                        id: 1,
+                        path: "/app",
+                        name: "__App",
+                        methods: [
+                            {
+                                label: "POST",
+                                color: "primary"
+                            },
+                            {
+                                label: "GET",
+                                color: "success"
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        path: "/app/components",
+                        name: "__App_Components",
+                        methods: [
+                            {
+                                label: "POST",
+                                color: "primary"
+                            },
+                            {
+                                label: "PUT",
+                                color: "primary"
+                            }
+                        ]
+                    }
+                ],
             }
         }
     }
 </script>
 
 <style scoped>
+    .route-list {
+        max-height: 100%;
+        overflow-y: overlay;
+    }
 
+    .route-list::-webkit-scrollbar {
+        display: none;
+    }
 </style>

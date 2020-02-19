@@ -6,13 +6,30 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: () => import("@/views/Home"),
     children: [
       {
         path: "benchwork-components",
-        name: "Components",
+        name: "components",
         component: () => import('@/views/Components')
+      },
+      {
+        path: "routes",
+        name: "routes",
+        component: () => import('@/views/Routes'),
+        children: [
+          {
+            path: "/",
+            name: "routes_index",
+            component: () => import("@/views/Routes/RoutesIndex")
+          },
+          {
+              path: "show",
+              name: "routes_show",
+              component: () => import("@/views/Routes/RoutesShow")
+            }
+          ]
       }
     ]
 
