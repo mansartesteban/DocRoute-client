@@ -23,6 +23,12 @@
 
             <route-nested-item></route-nested-item>
             <route-nested-item></route-nested-item>
+            <hr>
+
+
+            <reg-ex
+                regex="/{[a-zA-Z0-9]+}{2,6}/"
+            ></reg-ex>
 
         </v-container>
     </v-layout>
@@ -34,7 +40,8 @@
         components: {
             RouteList: () => import("@/components/Routes/RouteList"),
             RouteNestedItem: () => import("@/components/Routes/RouteNestedItem"),
-            Method: () => import("@/components/Routes/Method")
+            Method: () => import("@/components/Routes/Method"),
+            RegEx: () => import("@/components/Main/RegEx")
         }
     }
 </script>
