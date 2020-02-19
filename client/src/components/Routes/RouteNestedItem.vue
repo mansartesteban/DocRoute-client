@@ -5,8 +5,13 @@
 
             tile
     >
+        <v-card-title>
+            <v-icon class="mr-4">mdi-tag-multiple</v-icon>__App_Components_RouteNested
+        </v-card-title>
+        <v-card-subtitle>
+            <v-icon class="mr-4">mdi-sitemap</v-icon><b>/app</b>/components/route-nested
+        </v-card-subtitle>
         <v-card-text>
-            <div class="route-nested-path">/app/components/route-nested</div>
             <div class="route-nested-methods">
                 <method
                         v-for="method in methods"
@@ -15,7 +20,6 @@
                 >
                 </method>
             </div>
-            <div class="route-nested-name"></div>
         </v-card-text>
     </v-card>
 </template>
@@ -28,7 +32,7 @@
         },
         data: function () {
             return {
-                selected: true
+                selected: Math.random() > 0.5
             }
         },
         props: {
@@ -45,7 +49,7 @@
 
 <style scoped>
     .route-nested-item {
-
+        display: inline-block;
     }
 
     .route-nested-item.selected {

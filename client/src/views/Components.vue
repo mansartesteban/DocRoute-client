@@ -1,7 +1,10 @@
 <template>
     <v-layout class="components-view">
-        <v-layout class="routes-layout">
+        <v-container class="routes-layout">
             <route-list></route-list>
+            <hr>
+
+
 
             <div class="methods-section">
                 <method method="GET"></method>
@@ -14,14 +17,14 @@
                 <method method="HEAD"></method>
                 <method method="OPTIONS"></method>
             </div>
+            <hr>
 
 
-            <route-nested-item
-            >
 
-            </route-nested-item>
+            <route-nested-item></route-nested-item>
+            <route-nested-item></route-nested-item>
 
-        </v-layout>
+        </v-container>
     </v-layout>
 </template>
 
@@ -39,5 +42,13 @@
 <style scoped>
     .routes-layout {
         max-height: 97vh;
+    }
+
+    hr {
+        border-color: #777;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 0;
+        margin: 2em 0;
     }
 </style>
