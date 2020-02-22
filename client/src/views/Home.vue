@@ -1,11 +1,21 @@
 <template>
-    <v-container fluid>
+    <v-layout >
         <left-menu></left-menu>
-        <v-content app>
-            <router-view></router-view>
-        </v-content>
-    </v-container>
+        <v-content>
+            <v-container
+                    fluid
+                    fill-height
+            >
 
+                <router-view></router-view>
+
+            </v-container>
+
+
+
+        </v-content>
+        <!--<v-footer app></v-footer>-->
+    </v-layout>
 </template>
 
 <script>

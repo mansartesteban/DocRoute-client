@@ -1,37 +1,80 @@
 <template>
-    <v-layout class="components-view">
-        <v-container class="routes-layout">
-            <route-list></route-list>
-            <hr>
+    <v-container class="components-view">
+
+
+        <route-list></route-list>
+        <hr>
 
 
 
-            <div class="methods-section">
-                <method method="GET"></method>
-                <method method="POST"></method>
-                <method method="PUT"></method>
-                <method method="PATCH"></method>
-                <method method="DELETE"></method>
-                <method method="CONNECT"></method>
-                <method method="TRACE"></method>
-                <method method="HEAD"></method>
-                <method method="OPTIONS"></method>
-            </div>
-            <hr>
+        <div class="methods-section">
+            <method method="GET"></method>
+            <method method="POST"></method>
+            <method method="PUT"></method>
+            <method method="PATCH"></method>
+            <method method="DELETE"></method>
+            <method method="CONNECT"></method>
+            <method method="TRACE"></method>
+            <method method="HEAD"></method>
+            <method method="OPTIONS"></method>
+        </div>
+        <hr>
 
 
 
-            <route-nested-item></route-nested-item>
-            <route-nested-item></route-nested-item>
-            <hr>
+        <route-nested-item></route-nested-item>
+        <route-nested-item></route-nested-item>
+        <route-nested-item></route-nested-item>
+        <route-nested-item></route-nested-item>
+        <route-nested-item></route-nested-item>
+        <hr>
 
 
-            <reg-ex
-                regex="/{[a-zA-Z0-9]+}{2,6}/"
-            ></reg-ex>
+        <reg-ex
+            regex="/{[a-zA-Z0-9]+}{2,6}/"
+        ></reg-ex>
+        <hr>
 
-        </v-container>
-    </v-layout>
+
+
+        <parameter
+            name="id"
+            type="int"
+        ></parameter>
+        <parameter
+            name="id"
+            type="int"
+        ></parameter>
+        <parameter
+            name="id"
+            type="int"
+        ></parameter>
+        <parameter
+            name="id"
+            type="int"
+        ></parameter>
+        <hr>
+
+        <header-item
+            name="Content-Type"
+        >
+        </header-item>
+        <header-item
+                name="Content-Type"
+        >
+        </header-item>
+        <header-item
+                name="Content-Type"
+        >
+        </header-item>
+
+        <header-list
+                :headers="headers"
+        >
+
+        </header-list>
+
+    </v-container>
 </template>
 
 <script>
@@ -41,7 +84,58 @@
             RouteList: () => import("@/components/Routes/RouteList"),
             RouteNestedItem: () => import("@/components/Routes/RouteNestedItem"),
             Method: () => import("@/components/Routes/Method"),
-            RegEx: () => import("@/components/Main/RegEx")
+            RegEx: () => import("@/components/Main/RegEx"),
+            Parameter: () => import("@/components/Routes/Parameter/Parameter"),
+            HeaderItem: () => import("@/components/Routes/Headers/HeaderItem"),
+            HeaderList: () => import("@/components/Routes/Headers/HeaderList")
+        },
+        data: function() {
+            return {
+                headers: [
+                    {
+                        name: "Content-Type",
+                        acceptedValues: [
+                            "Application/JSON",
+                            "application/XML",
+                            "text/plain-text"
+                        ]
+                    },
+                    {
+                        name: "Content-Type",
+                        acceptedValues: [
+                            "Application/JSON",
+                            "application/XML",
+                            "text/plain-text"
+                        ]
+                    },
+                    {
+                        name: "Content-Type",
+                        acceptedValues: [
+                            "Application/JSON",
+                            "application/XML",
+                            "text/plain-text"
+                        ]
+                    },
+                    {
+                        name: "Content-Type",
+                        acceptedValues: [
+                            "Application/JSON",
+                            "application/XML",
+                            "text/plain-text"
+                        ]
+                    }
+                ]
+            }
+        },
+        computed: {
+            myCount: function () {
+                return this.$store.state.myCount
+            }
+        },
+        methods: {
+            increase: function () {
+                this.$store.commit('toto')
+            }
         }
     }
 </script>

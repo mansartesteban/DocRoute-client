@@ -4,8 +4,8 @@
     >
         <v-layout class="routes-layout">
             <route-list></route-list>
+            <router-view></router-view>
         </v-layout>
-        <router-view></router-view>
     </v-container>
 </template>
 

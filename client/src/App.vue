@@ -8,9 +8,21 @@
 
 export default {
   name: 'App',
-
   components: {
+  },
+  computed: {
+    myCount: function () {
+      return this.$store.state.myCount
+    }
+  },
+  methods: {
+    increase: function () {
+      this.$store.commit("toto")
+    }
   }
 
 };
 </script>
+
+<style scoped>
+</style>

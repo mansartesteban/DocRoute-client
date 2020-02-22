@@ -1,6 +1,6 @@
 <template>
     <v-card
-            class="route-nested-item"
+            class="route-nested-item mb-3 mr-3"
             :class="selected?'selected':''"
 
             tile
@@ -54,5 +54,9 @@
 
     .route-nested-item.selected {
         border-left: 3px solid #3966bf;
+    }
+
+    .route-nested-item:not(.selected) {
+        padding-left: 3px;
     }
 </style>

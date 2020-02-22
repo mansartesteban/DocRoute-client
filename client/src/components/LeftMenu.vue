@@ -1,8 +1,9 @@
 <template>
     <v-navigation-drawer
-            v-model="drawer"
             color="primary"
+            v-model="drawer"
             app
+            clipped
     >
         <v-list-item>
             <v-list-item-content>

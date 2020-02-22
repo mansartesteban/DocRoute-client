@@ -1,14 +1,13 @@
 <template>
     <div
-        class="regex-prettier px-2 py-1 d-inline-block"
-        :class="c_hightlight ? 'hightlight' : ''"
-        @mouseenter.stop="c_hightlight=!c_hightlight"
-        @mouseleave.stop="c_hightlight=!c_hightlight"
+        class="regex-prettier d-inline-block"
     >
         <v-icon v-if="icon" class="mr-4">
-            mdi-check-all
+            mdi-json
         </v-icon>
-        {{ regex }}
+        <span class="hightlight px-2 py-1 pl-1">
+            {{ regex }}
+        </span>
     </div>
 </template>
 
@@ -41,7 +40,7 @@
 </script>
 
 <style scoped>
-    .regex-prettier.hightlight {
+    .regex-prettier .hightlight {
         background: rgba(255, 255, 255, .1);
     }
 </style>

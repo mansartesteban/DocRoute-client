@@ -1,5 +1,5 @@
 <template>
-    <div class="route-list d-inline-block pr-6">
+    <div class="route-list d-inline-block pr-6 ">
         <!--<route-item-->
                 <!--:path="this.route.path"-->
                 <!--:name="this.route.name"-->
