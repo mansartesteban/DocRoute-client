@@ -1,9 +1,10 @@
 <template>
     <v-container
         fluid
+        fill-height
     >
         <v-layout class="routes-layout">
-            <route-list></route-list>
+            <route-list :routes="routes"></route-list>
             <router-view></router-view>
         </v-layout>
     </v-container>
@@ -14,6 +15,14 @@
         name: "Routes",
         components: {
             RouteList: () => import("@/components/Routes/RouteList")
+        },
+        created() {
+            this.$store.dispatch("listRoutes")
+        },
+        computed: {
+            routes() {
+                return this.$store.state.routes
+            }
         }
     }
 </script>

@@ -12,11 +12,18 @@
                        dense
                        height="32"
                        :title="name"
-                       @click="$router.push('/routes/show')"
             >
+           <!--@click.stop="$router.push('/routes/show')"-->
+
+
                 <v-toolbar-title>
                     {{ name }}
                 </v-toolbar-title>
+                <v-spacer></v-spacer>
+                <route-delete
+                    :routeId="id"
+                    :routeName="name">
+                </route-delete>
             </v-toolbar>
             <v-card-text>
                 <p
@@ -39,7 +46,8 @@
     export default {
         name: "RouteItem",
         components: {
-            Method: () => import("@/components/Routes/Method")
+            Method: () => import("@/components/Routes/Method"),
+            RouteDelete: () => import("@/components/Routes/RouteDelete")
         },
         props: {
             selected: {
@@ -59,7 +67,10 @@
             },
             methods: {
                 type: Array,
-                required: true
+                required: false,
+                default: () => {
+                    return []
+                }
             }
         }
     }

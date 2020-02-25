@@ -1,13 +1,8 @@
 <template>
-    <div class="route-list d-inline-block pr-6 ">
-        <!--<route-item-->
-                <!--:path="this.route.path"-->
-                <!--:name="this.route.name"-->
-                <!--:methods="this.route.methods"-->
-        <!--&gt;-->
-        <!--</route-item>-->
+    <div class="route-list d-inline-block pr-6">
+        <route-new></route-new>
         <route-item
-                v-for="route2 in route"
+                v-for="route2 in routes"
                 :path="route2.path"
                 :name="route2.name"
                 :methods="route2.methods"
@@ -15,61 +10,26 @@
         >
         </route-item>
     </div>
+
+    <!--todo : Ajouter un skeleton loader -->
 </template>
 
 <script>
     export default {
         name: "RouteList",
         components: {
-            RouteItem: () => import("@/components/Routes/RouteItem")
+            RouteItem: () => import("@/components/Routes/RouteItem"),
+            RouteNew: () => import("@/components/Routes/RouteNew")
         },
         props: {
-        },
-        computed: {
-            getRoutes: function () {
-                let routes = []
-                for (let i = 0 ; i < 10 ; i++) {
-                    routes.push(this.route)
+            routes: {
+                type: Array,
+                required: false,
+                default: () => {
+                    return []
                 }
-                return routes
             }
         },
-        data: () => {
-            return {
-                route: [
-                    {
-                        id: 1,
-                        path: "/app",
-                        name: "__App",
-                        methods: [
-                            {
-                                label: "POST",
-                                color: "primary"
-                            },
-                            {
-                                label: "GET",
-                                color: "success"
-                            }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        path: "/app/components",
-                        name: "__App_Components",
-                        methods: [
-                            {
-                                label: "POST",
-                                color: "primary"
-                            },
-                            {
-                                label: "PUT",
-                                color: "primary"
-                            }
-                        ]
-                    }
-                ],
-            }
-        }
     }
 </script>
 

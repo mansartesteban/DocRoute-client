@@ -16,11 +16,10 @@ const routes = [
       },
       {
         path: "routes",
-        name: "routes",
         component: () => import('@/views/Routes'),
         children: [
           {
-            path: "/",
+            path: "",
             name: "routes_index",
             component: () => import("@/views/Routes/RoutesIndex")
           },

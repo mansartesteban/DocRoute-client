@@ -71,8 +71,12 @@
         <header-list
                 :headers="headers"
         >
-
         </header-list>
+
+
+        <route-new
+            class="mt-4">
+        </route-new>
 
     </v-container>
 </template>
@@ -87,7 +91,8 @@
             RegEx: () => import("@/components/Main/RegEx"),
             Parameter: () => import("@/components/Routes/Parameter/Parameter"),
             HeaderItem: () => import("@/components/Routes/Headers/HeaderItem"),
-            HeaderList: () => import("@/components/Routes/Headers/HeaderList")
+            HeaderList: () => import("@/components/Routes/Headers/HeaderList"),
+            RouteNew: () => import("@/components/Routes/RouteNew")
         },
         data: function() {
             return {
@@ -128,15 +133,10 @@
             }
         },
         computed: {
-            myCount: function () {
-                return this.$store.state.myCount
-            }
         },
         methods: {
-            increase: function () {
-                this.$store.commit('toto')
-            }
-        }
+        },
+
     }
 </script>
 
