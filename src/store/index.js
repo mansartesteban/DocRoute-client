@@ -6,10 +6,36 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    routes: []
+    routes: [],
+    alert: {
+        state: false,
+        message: ""
+    },
+    snackbar: {
+        type: "primary",
+        message: "",
+        state: false
+    }
   },
   mutations: {
+    dismissSnackbar(state) {
+        state.snackbar.state = false;
+    },
+    popSnackbar(state, payload) {
+        if (payload?.message.length > 0) {
+            state.snackbar.state = true
+            state.snackbar.message = payload?.message || ""
 
+            if (["primary", "secondary", "info", "success", "warning", "danger"]
+                .indexOf(payload?.type.toLowerCase())
+            ) {
+                state.snackbar.type = payload?.type || ""
+            } else {
+                state.snackbar.type = "primary"
+            }
+
+        }
+    }
   },
   actions: {
     listRoutes({commit, state}) {
@@ -25,58 +51,45 @@ export default new Vuex.Store({
 
     },
     addRoute({commit, state}, payload) {
-      Axios.post("/routes", {object_to_create: payload})
-          .then(({data, status}) => {
-              if (status == 201) {
-                state.routes.push(data.datas.object_created)
-              }
-            // todo : Récupérer l'objet créé et l'ajouter dans store.routes si aucune erreur
-            // todo : Prévoir un slot pour les erreurs sur le component RouteNew
-          })
-          .catch((error) => {
-              if (error.response) {
-                  // The request was made and the server responded with a status code
-                  // that falls out of the range of 2xx
-                  console.log(error.response.data);
-                  console.log(error.response.status);
-                  console.log(error.response.headers);
-              } else if (error.request) {
-                  // The request was made but no response was received
-                  // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-                  // http.ClientRequest in node.js
-                  console.log(error.request);
-              } else {
-                  // Something happened in setting up the request that triggered an Error
-                  console.log('Error', error.message);
-              }
-              console.log(error.config);
-          })
+        return new Promise((resolve, reject) => {
+            Axios.post("/routes", {object_to_create: payload})
+                .then(({data, status}) => {
+                    if (status == 201) {
+                        state.routes.push(data.datas.object_created)
+                        resolve(true)
+                    }
+                })
+                .catch((error) => {
+                    reject(error.response.data)
+                })
+        })
     },
     deleteRoute({commit, state}, payload) {
-        Axios.delete("/routes/" + payload.id)
-            .then(({data, status}) => {
-                if (status == 200) {
-                    if (data.datas.object_deleted.id != undefined) {
-                        let idDeleted = data.datas.object_deleted.id
-                        state.routes = state.routes.filter((route) => {
-                            return route.id != idDeleted
-                        })
+        return new Promise((resolve, reject) => {
+            Axios.delete("/routes/" + payload.id)
+                .then(({data, status}) => {
+                    if (status == 200) {
+                        if (data.datas.object_deleted.id != undefined) {
+                            let idDeleted = data.datas.object_deleted.id
+                            state.routes = state.routes.filter((route) => {
+                                return route.id != idDeleted
+                            })
+                            resolve(true)
+                        }
                     }
-                }
-            })
-            .catch((error) => {
-                console.log("error ?", error)
-            })
+                })
+                .catch((error) => {
+                    return error
+                })
+        })
+
+    },
+    alert({commit, state}, data) {
+        if (data.messsage) {
+            state.alert = true
+        }
     }
   },
   modules: {
   }
 })
-
-// Todo :
-//  - Message d'erreurs
-//  - Loader
-//  - Skeleton Loader
-//  - V-Alert
-//  - Reset formulaire OK
-//  - v-card Tile (sur v-dialog)

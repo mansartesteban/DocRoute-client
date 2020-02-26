@@ -7,6 +7,7 @@
             width="400"
         >
             <v-card tile
+                    :loading="loading"
             >
                 <v-toolbar color="success" dense>
                     <v-toolbar-title>
@@ -18,15 +19,19 @@
                             label="Nom"
                             title="Nom"
                             v-model="name"
+                            :error-messages="errors.name"
+                            @keypress="clearErrors('path')"
                     >
                     </v-text-field>
                     <v-text-field
                             label="Chemin"
                             title="Chemin"
                             v-model="path"
+                            :error-messages="errors.path"
+                            @keypress="clearErrors('path')"
                     >
                     </v-text-field>
-                    <v-btn color="success" small @click.prevent="addRoute()">
+                    <v-btn color="success" small @click.prevent="addRoute()" class="mt-4">
                         Ajouter
                     </v-btn>
                 </v-card-text>
@@ -44,12 +49,18 @@
             return {
                 show: false,
                 name: "",
-                path: ""
+                path: "",
+                loading: false,
+                errors: {
+                    name: null,
+                    path: null
+                }
             }
         },
         methods: {
             addRoute: function () {
                 let $this = this;
+                this.loading = true;
                 this.$store.dispatch("addRoute", {
                     name: this.name,
                     path: this.path
@@ -57,14 +68,23 @@
                 .then(success => {
                     this.show = false
                     this.resetForm()
+                    this.loading = false;
+                    this.$store.commit("popSnackbar", {type: "success", message: success.message})
                 })
-                .catch(error => {
-
+                .catch(response => {
+                    this.errors.name = response?.datas?.errors?.name || null
+                    this.errors.path = response?.datas?.errors?.path || null
+                    this.loading = false;
                 })
             },
             resetForm: function () {
                 this.name = ""
                 this.path = ""
+                this.errors = this.errors.map(error => "")
+                this.loading = false
+            },
+            clearErrors: function (fieldToClear) {
+                this.errors[fieldToClear] = null
             }
         }
     }

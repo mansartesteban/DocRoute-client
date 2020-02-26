@@ -1,6 +1,6 @@
 <template>
     <div class="route-to-delete">
-        <v-btn color="error" height="24" class="float-right" x-small @click="show = true" tile>
+        <v-btn text height="24" class="float-right" x-small @click="show = true" tile>
             <v-icon small :block="false">mdi-delete</v-icon>
         </v-btn>
         <v-dialog v-model="show"
@@ -9,7 +9,7 @@
             <v-card tile>
                 <v-toolbar dense color="error" tile>
                     <v-toolbar-title tile>
-                        Suppression de {{ routeName || "'sans-nom'" }}
+                        Suppression de <b>{{ routeName || "'sans-nom'" }}</b>
                     </v-toolbar-title>
 
                 </v-toolbar>
@@ -38,21 +38,30 @@
         },
         data: () => {
             return {
-                show: false
+                show: false,
+                loading: false
             }
         },
         methods: {
             deleteRoute(id) {
+                this.loading = true
                 this.$store.dispatch("deleteRoute", {
                     id: id
                 })
                 .then(success => {
-                    console.log("Success !", success)
                     this.show = false
+                    this.$store.commit("popSnackbar", {
+                        type: "success",
+                        message: "Route supprimée",
+                    })
+                    this.loading = false
                 })
                 .catch(error => {
-
+                    this.loading = false
                 })
+            },
+            snackAlert() {
+                this.$store.commit('popSnackbar', {type:'success', message:'It works !'})
             }
         }
     }

@@ -1,14 +1,20 @@
 <template>
     <div class="route-list d-inline-block pr-6">
         <route-new></route-new>
+        <v-skeleton-loader
+                v-if="!isEmpty"
+                v-for="i in 5"
+                height="94"
+                type="list-item-three-line"
+        ></v-skeleton-loader>
+
         <route-item
-                v-for="route2 in routes"
-                :path="route2.path"
-                :name="route2.name"
-                :methods="route2.methods"
-                :id="route2.id"
-        >
-        </route-item>
+                v-for="route in routes"
+                :path="route.path"
+                :name="route.name"
+                :methods="route.methods"
+                :id="route.id"
+        ></route-item>
     </div>
 
     <!--todo : Ajouter un skeleton loader -->
@@ -30,6 +36,11 @@
                 }
             }
         },
+        computed: {
+            isEmpty: function() {
+                return this.routes.length
+            }
+        }
     }
 </script>
 

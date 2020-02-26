@@ -1,7 +1,26 @@
 <template>
     <v-container class="components-view">
 
-
+        <v-btn @click="snackbar = true">
+            Show snackbar
+        </v-btn>
+        <v-snackbar
+                v-model="snackbar"
+                color="success"
+                type="success"
+                top
+                timeout="4500"
+        >
+            <v-icon>mdi-check</v-icon>
+            Route créée avec success
+            <v-btn
+                    dark
+                    text
+                    @click="snackbar = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
         <route-list></route-list>
         <hr>
 
@@ -96,6 +115,7 @@
         },
         data: function() {
             return {
+                snackbar: true,
                 headers: [
                     {
                         name: "Content-Type",
