@@ -1,6 +1,6 @@
 <template>
     <v-layout>
-        <snack-bar></snack-bar>
+        <alert></alert>
         <left-menu></left-menu>
         <v-content>
             <v-container
@@ -24,7 +24,7 @@
         name: "Home",
         components: {
             LeftMenu: () => import("@/components/LeftMenu"),
-            snackBar: () => import("@/components/Main/SnackBar")
+            Alert: () => import("@/components/Main/Alert")
         }
     }
 </script>

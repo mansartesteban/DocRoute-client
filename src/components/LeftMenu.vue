@@ -4,6 +4,8 @@
             v-model="drawer"
             app
             clipped
+            :disable-resize-watcher="true"
+            :hide-overlay="true"
     >
         <v-list-item>
             <v-list-item-content>

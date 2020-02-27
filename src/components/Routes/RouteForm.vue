@@ -15,25 +15,27 @@
                     </v-toolbar-title>
                 </v-toolbar>
                 <v-card-text>
-                    <v-text-field
-                            label="Nom"
-                            title="Nom"
-                            v-model="name"
-                            :error-messages="errors.name"
-                            @keypress="clearErrors('path')"
-                    >
-                    </v-text-field>
-                    <v-text-field
-                            label="Chemin"
-                            title="Chemin"
-                            v-model="path"
-                            :error-messages="errors.path"
-                            @keypress="clearErrors('path')"
-                    >
-                    </v-text-field>
-                    <v-btn color="success" small @click.prevent="addRoute()" class="mt-4">
-                        Ajouter
-                    </v-btn>
+                    <form @submit.prevent="addRoute" @keyup.enter.prevent="addRoute" tabindex="0">
+                        <v-text-field
+                                label="Nom"
+                                title="Nom"
+                                v-model="name"
+                                :error-messages="errors.name"
+                                @keypress="clearErrors('path')"
+                        >
+                        </v-text-field>
+                        <v-text-field
+                                label="Chemin"
+                                title="Chemin"
+                                v-model="path"
+                                :error-messages="errors.path"
+                                @keypress="clearErrors('path')"
+                        >
+                        </v-text-field>
+                        <v-btn color="success" small @click.prevent="addRoute()" class="mt-4">
+                            Ajouter
+                        </v-btn>
+                    </form>
                 </v-card-text>
             </v-card>
         </v-dialog>
@@ -44,7 +46,7 @@
     import ClickOutside from 'vue-click-outside'
 
     export default {
-        name: "RouteNew",
+        name: "RouteForm",
         data: () => {
             return {
                 show: false,
@@ -66,12 +68,15 @@
                     path: this.path
                 })
                 .then(success => {
+                    console.log(success)
                     this.show = false
                     this.resetForm()
                     this.loading = false;
-                    this.$store.commit("popSnackbar", {type: "success", message: success.message})
+                    this.$store.dispatch("addAlert", {typeAlert: "success", message: success.message})
                 })
                 .catch(response => {
+                    console.log(response)
+                    this.$store.dispatch("addAlert", {typeAlert: "error", message: response.message})
                     this.errors.name = response?.datas?.errors?.name || null
                     this.errors.path = response?.datas?.errors?.path || null
                     this.loading = false;
@@ -80,7 +85,8 @@
             resetForm: function () {
                 this.name = ""
                 this.path = ""
-                this.errors = this.errors.map(error => "")
+                this.errors.name = ""
+                this.errors.path = ""
                 this.loading = false
             },
             clearErrors: function (fieldToClear) {

@@ -3,7 +3,6 @@
             v-model="snackbar.state"
             :color="snackbar.type"
             top
-            :timeout="4500"
     >
         <v-icon>mdi-check</v-icon>
         {{ snackbar.message }}

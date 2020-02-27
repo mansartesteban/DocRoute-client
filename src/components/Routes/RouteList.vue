@@ -1,6 +1,6 @@
 <template>
     <div class="route-list d-inline-block pr-6">
-        <route-new></route-new>
+        <route-form></route-form>
         <v-skeleton-loader
                 v-if="!isEmpty"
                 v-for="i in 5"
@@ -25,7 +25,7 @@
         name: "RouteList",
         components: {
             RouteItem: () => import("@/components/Routes/RouteItem"),
-            RouteNew: () => import("@/components/Routes/RouteNew")
+            RouteForm: () => import("@/components/Routes/RouteForm")
         },
         props: {
             routes: {

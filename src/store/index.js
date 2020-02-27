@@ -15,7 +15,8 @@ export default new Vuex.Store({
         type: "primary",
         message: "",
         state: false
-    }
+    },
+    alerts: []
   },
   mutations: {
     dismissSnackbar(state) {
@@ -56,7 +57,7 @@ export default new Vuex.Store({
                 .then(({data, status}) => {
                     if (status == 201) {
                         state.routes.push(data.datas.object_created)
-                        resolve(true)
+                        resolve(data)
                     }
                 })
                 .catch((error) => {
@@ -84,10 +85,17 @@ export default new Vuex.Store({
         })
 
     },
-    alert({commit, state}, data) {
-        if (data.messsage) {
-            state.alert = true
+    addAlert({commit, state}, data) {
+        if (data.message) {
+            data.keyAlert = state.alerts.length
+            state.alerts.push(data)
         }
+    },
+    removeAlert({commit, state}, keyAlert) {
+        state.alerts = state.alerts.filter((alert) => {
+            console.log(alert, keyAlert)
+            return alert.keyAlert != keyAlert
+        })
     }
   },
   modules: {
