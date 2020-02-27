@@ -165,7 +165,7 @@
         },
         methods: {
             addAlert() {
-                this.$store.dispatch('addAlert', {typeAlert: 'error', message: 'Random message'})
+                this.$store.dispatch('notify', {type: 'error', message: 'Random message'})
             }
         },
 

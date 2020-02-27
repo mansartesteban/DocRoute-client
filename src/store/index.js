@@ -85,7 +85,7 @@ export default new Vuex.Store({
         })
 
     },
-    addAlert({commit, state}, data) {
+    notify({commit, state}, data) {
         if (data.message) {
             data.keyAlert = state.alerts.length
             state.alerts.push(data)

@@ -2,7 +2,7 @@
     <div class="alert-container">
         <m-alert-item
             v-for="alert in alerts"
-            :typeAlert="alert.typeAlert"
+            :type="alert.type"
             :message="alert.message"
             :keyAlert="alert.keyAlert"
         >

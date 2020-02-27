@@ -1,9 +1,7 @@
 <template>
-    <div class="route-new">
-        <v-btn color="success" :block="true" class="mb-4" @click="show = true" tile>
-            <v-icon>mdi-plus</v-icon>Nouvelle route
-        </v-btn>
-        <v-dialog v-model="show"
+    <div class="route-form">
+        <v-dialog :value="show"
+                  v-on:input="test"
             width="400"
         >
             <v-card tile
@@ -21,7 +19,7 @@
                                 title="Nom"
                                 v-model="name"
                                 :error-messages="errors.name"
-                                @keypress="clearErrors('path')"
+                                @keypress="clearErrors('name')"
                         >
                         </v-text-field>
                         <v-text-field
@@ -43,13 +41,16 @@
 </template>
 
 <script>
-    import ClickOutside from 'vue-click-outside'
-
     export default {
         name: "RouteForm",
+        props: {
+            show: {
+                type: Boolean
+            }
+        },
         data: () => {
             return {
-                show: false,
+                showF: false,
                 name: "",
                 path: "",
                 loading: false,
@@ -68,15 +69,13 @@
                     path: this.path
                 })
                 .then(success => {
-                    console.log(success)
-                    this.show = false
+                    this.toggleForm()
                     this.resetForm()
                     this.loading = false;
-                    this.$store.dispatch("addAlert", {typeAlert: "success", message: success.message})
+                    this.$store.dispatch("notify", {type: "success", message: success.message})
                 })
                 .catch(response => {
-                    console.log(response)
-                    this.$store.dispatch("addAlert", {typeAlert: "error", message: response.message})
+                    this.$store.dispatch("notify", {type: "error", message: response.message})
                     this.errors.name = response?.datas?.errors?.name || null
                     this.errors.path = response?.datas?.errors?.path || null
                     this.loading = false;
@@ -91,6 +90,12 @@
             },
             clearErrors: function (fieldToClear) {
                 this.errors[fieldToClear] = null
+            },
+            toggleForm: function () {
+                this.$emit("input", false)
+            },
+            test(state) {
+                this.$emit("input", state)
             }
         }
     }

@@ -50,7 +50,7 @@
                 })
                 .then(success => {
                     this.show = false
-                    this.$store.commit("popSnackbar", {
+                    this.$store.dispatch("notify", {
                         type: "success",
                         message: "Route supprimée",
                     })
@@ -59,9 +59,6 @@
                 .catch(error => {
                     this.loading = false
                 })
-            },
-            snackAlert() {
-                this.$store.commit('popSnackbar', {type:'success', message:'It works !'})
             }
         }
     }

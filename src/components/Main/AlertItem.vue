@@ -1,7 +1,7 @@
 <template>
     <div class="alert-item">
         <v-alert
-                :type="typeAlert"
+                :type="type"
                 tile
                 border="top"
                 :dismissible="true"
@@ -17,7 +17,7 @@
     export default {
         name: "AlertItem",
         props: {
-            typeAlert: {
+            type: {
                 type: String,
                 default: 'error'
             },

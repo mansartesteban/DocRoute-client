@@ -1,6 +1,10 @@
 <template>
     <div class="route-list d-inline-block pr-6">
-        <route-form></route-form>
+        <v-btn color="success" :block="true" class="mb-4" @click="showAddForm = true" tile>
+            <v-icon>mdi-plus</v-icon>
+            <span>Nouvelle route</span>
+        </v-btn>
+        <route-form :show="showAddForm" v-on:input="showAddForm = arguments[0]"></route-form>
         <v-skeleton-loader
                 v-if="!isEmpty"
                 v-for="i in 5"
@@ -40,6 +44,13 @@
             isEmpty: function() {
                 return this.routes.length
             }
+        },
+        data: () => {
+            return {
+                showAddForm: false
+            }
+        },
+        methods: {
         }
     }
 </script>
