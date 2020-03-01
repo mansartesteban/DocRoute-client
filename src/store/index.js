@@ -7,49 +7,27 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     routes: [],
-    alert: {
-        state: false,
-        message: ""
-    },
-    snackbar: {
-        type: "primary",
-        message: "",
-        state: false
-    },
-    alerts: []
+    dictionary: {
+        methods: [],
+        headers: []
+    }
   },
   mutations: {
-    dismissSnackbar(state) {
-        state.snackbar.state = false;
-    },
-    popSnackbar(state, payload) {
-        if (payload?.message.length > 0) {
-            state.snackbar.state = true
-            state.snackbar.message = payload?.message || ""
-
-            if (["primary", "secondary", "info", "success", "warning", "danger"]
-                .indexOf(payload?.type.toLowerCase())
-            ) {
-                state.snackbar.type = payload?.type || ""
-            } else {
-                state.snackbar.type = "primary"
-            }
-
-        }
-    }
   },
   actions: {
     listRoutes({commit, state}) {
-      Axios.get("/routes", {toto: "toto"})
-          .then(({data, status}) => {
-              if (status === 200) {
-                state.routes = data.routes
-              }
-          })
-          .catch((res) => {
-            console.log("error", res)
-          })
-
+        return new Promise((resolve, reject) => {
+            Axios.get("/routes")
+                .then(({data, status}) => {
+                    if (status === 200) {
+                        state.routes = data.routes
+                        resolve(data)
+                    }
+                })
+                .catch((res) => {
+                    reject(res)
+                })
+        })
     },
     addRoute({commit, state}, payload) {
         return new Promise((resolve, reject) => {
@@ -64,6 +42,31 @@ export default new Vuex.Store({
                     reject(error.response.data)
                 })
         })
+    },
+    updateRoute({commit, state}, payload) {
+    let $this = this;
+      return new Promise((resolve, reject) => {
+          Axios.put("/routes/" + payload.id, {object_to_update: payload})
+              .then(({data, status}) => {
+                  if (status == 200) {
+                      if (data.datas.object_updated) {
+                          state.routes = this.state.routes.map((route) => {
+                                  if (route.id == data.datas.object_updated.id) {
+                                      return data.datas.object_updated
+                                  } else {
+                                      return route
+                                  }
+                              }
+                          )
+                      }
+                      resolve(data)
+
+                  }
+              })
+              .catch((error) => {
+                  reject(error.response.data)
+              })
+      })
     },
     deleteRoute({commit, state}, payload) {
         return new Promise((resolve, reject) => {
@@ -83,18 +86,23 @@ export default new Vuex.Store({
                     return error
                 })
         })
-
     },
-    notify({commit, state}, data) {
-        if (data.message) {
-            data.keyAlert = state.alerts.length
-            state.alerts.push(data)
-        }
-    },
-    removeAlert({commit, state}, keyAlert) {
-        state.alerts = state.alerts.filter((alert) => {
-            console.log(alert, keyAlert)
-            return alert.keyAlert != keyAlert
+    listMethods({commit, state}) {
+        return new Promise((resolve, reject) => {
+            Axios.get("/methods")
+                .then(({data, status}) => {
+                    if (status == 200) {
+                        for (let method of data.methods) {
+                            state.dictionary.methods.push(method)
+                        }
+                        resolve(data)
+                    } else {
+                        reject(data)
+                    }
+                })
+                .catch(res => {
+                    reject(res)
+                })
         })
     }
   },

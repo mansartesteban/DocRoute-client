@@ -1,37 +1,18 @@
 <template>
     <v-container class="components-view">
 
-        <m-alert
-        ></m-alert>
 
         <v-btn
                 color="info"
-                @click='addAlert'
+                @click="$notify({text:'test'})"
         >Ajouter une alerte</v-btn>
 
         <v-btn @click="snackbar = true">
             Show snackbar
         </v-btn>
-        <v-snackbar
-                v-model="snackbar"
-                color="success"
-                type="success"
-                top
-                :timeout="4500"
-        >
-            <v-icon>mdi-check</v-icon>
-            Route créée avec success
-            <v-btn
-                    dark
-                    text
-                    @click="snackbar = false"
-            >
-                Close
-            </v-btn>
-        </v-snackbar>
+
         <route-list></route-list>
         <hr>
-
 
 
         <div class="methods-section">
@@ -120,11 +101,9 @@
             HeaderItem: () => import("@/components/Routes/Headers/HeaderItem"),
             HeaderList: () => import("@/components/Routes/Headers/HeaderList"),
             RouteNew: () => import("@/components/Routes/RouteForm"),
-            MAlert: () => import("@/components/Main/Alert")
         },
         data: function() {
             return {
-                snackbar: false,
                 headers: [
                     {
                         name: "Content-Type",
@@ -164,9 +143,6 @@
         computed: {
         },
         methods: {
-            addAlert() {
-                this.$store.dispatch('notify', {type: 'error', message: 'Random message'})
-            }
         },
 
     }

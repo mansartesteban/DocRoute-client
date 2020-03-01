@@ -16,7 +16,7 @@
                 v-for="route in routes"
                 :path="route.path"
                 :name="route.name"
-                :methods="route.methods"
+                :methods="route.method"
                 :id="route.id"
         ></route-item>
     </div>

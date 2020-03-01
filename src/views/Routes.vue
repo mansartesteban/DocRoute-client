@@ -18,6 +18,7 @@
         },
         created() {
             this.$store.dispatch("listRoutes")
+            this.$store.dispatch("listMethods")
         },
         computed: {
             routes() {

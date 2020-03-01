@@ -20,15 +20,23 @@
                     {{ name }}
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
+                <v-btn @click="showUpdateForm = true" icon small>
+                    <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+                <route-form
+                    v-if="showUpdateForm"
+                    :show="showUpdateForm" v-on:input="showUpdateForm = arguments[0]"
+                    :update="true"
+                    :id="id"
+                    :defaultValue="defaultValue"
+                ></route-form>
                 <route-delete
                     :routeId="id"
                     :routeName="name">
                 </route-delete>
             </v-toolbar>
-            <v-card-text>
-                <p
-                        class="mb-2"
-                >
+            <v-card-text class="route-item-content">
+                <p :class="methods.length ? 'mb-2' : 'mb-0'">
                     {{ path }}
                 </p>
                 <method
@@ -47,7 +55,8 @@
         name: "RouteItem",
         components: {
             Method: () => import("@/components/Routes/Method"),
-            RouteDelete: () => import("@/components/Routes/RouteDelete")
+            RouteDelete: () => import("@/components/Routes/RouteDelete"),
+            RouteForm: () => import("@/components/Routes/RouteForm")
         },
         props: {
             selected: {
@@ -72,18 +81,38 @@
                     return []
                 }
             }
+        },
+        data: function () {
+            return {
+                showUpdateForm: false
+            }
+        },
+        computed: {
+            defaultValue() {
+                console.log(this.methods)
+                return {
+                    path: this.path,
+                    name: this.name,
+                    methods: this.methods[0]
+                }
+            }
         }
     }
 </script>
 
 <style scoped>
-    /*.route-item .v-toolbar:hover {*/
-        /*position: relative;*/
-        /*overflow-x: auto;*/
-        /*-webkit-transform: scale(1.2);*/
-        /*-moz-transform: scale(1.2);*/
-        /*-ms-transform: scale(1.2);*/
-        /*-o-transform: scale(1.2);*/
-        /*transform: scale(1.2);*/
-    /*}*/
+    .route-item .route-item-content {
+        position: relative;
+    }
+
+    .route-item:hover  .route-item-content:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        opacity: .05;
+    }
 </style>

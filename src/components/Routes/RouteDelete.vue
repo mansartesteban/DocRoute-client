@@ -1,7 +1,7 @@
 <template>
     <div class="route-to-delete">
-        <v-btn text height="24" class="float-right" x-small @click="show = true" tile>
-            <v-icon small :block="false">mdi-delete</v-icon>
+        <v-btn icon small @click="show = true">
+            <v-icon>mdi-delete</v-icon>
         </v-btn>
         <v-dialog v-model="show"
                   width="400"
@@ -9,7 +9,7 @@
             <v-card tile>
                 <v-toolbar dense color="error" tile>
                     <v-toolbar-title tile>
-                        Suppression de <b>{{ routeName || "'sans-nom'" }}</b>
+                        <v-icon class="mr-3">mdi-delete</v-icon>Suppression de <b>{{ routeName || "'sans-nom'" }}</b>
                     </v-toolbar-title>
 
                 </v-toolbar>
@@ -50,9 +50,9 @@
                 })
                 .then(success => {
                     this.show = false
-                    this.$store.dispatch("notify", {
+                    this.$notify({
                         type: "success",
-                        message: "Route supprimée",
+                        text: "Route supprimée",
                     })
                     this.loading = false
                 })

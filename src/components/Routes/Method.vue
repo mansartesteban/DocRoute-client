@@ -1,6 +1,6 @@
 <template>
-    <div class="method mb-2">
-        <v-chip small :color="colors[method.toLowerCase()]">{{ method }}</v-chip>
+    <div class="method">
+        <v-chip x-small :color="colors[method.toLowerCase()]">{{ method }}</v-chip>
     </div>
 </template>
 
@@ -40,9 +40,5 @@
 <style scoped>
     .method {
         display: inline-block;
-    }
-
-    .method:not(:last-child) {
-        margin-right: .5em;
     }
 </style>

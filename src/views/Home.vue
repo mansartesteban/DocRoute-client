@@ -1,6 +1,6 @@
 <template>
     <v-layout>
-        <alert></alert>
+        <notifications class="mx-2 my-3"></notifications>
         <left-menu></left-menu>
         <v-content>
             <v-container
@@ -12,10 +12,7 @@
 
             </v-container>
 
-
-
         </v-content>
-        <!--<v-footer app></v-footer>-->
     </v-layout>
 </template>
 
@@ -24,7 +21,6 @@
         name: "Home",
         components: {
             LeftMenu: () => import("@/components/LeftMenu"),
-            Alert: () => import("@/components/Main/Alert")
         }
     }
 </script>
