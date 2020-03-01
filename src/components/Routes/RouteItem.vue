@@ -7,13 +7,14 @@
             class="mb-3"
             :class="selected?'selected':''"
         >
-            <v-toolbar color="primary"
-                       dark
-                       dense
-                       height="32"
-                       :title="name"
+            <v-toolbar
+                color="primary"
+                dark
+                dense
+                height="32"
+                :title="name"
+               @click="$store.commit('ModuleRoute/selectRoute', {id:id})"
             >
-           <!--@click.stop="$router.push('/routes/show')"-->
 
 
                 <v-toolbar-title>
@@ -89,7 +90,6 @@
         },
         computed: {
             defaultValue() {
-                console.log(this.methods)
                 return {
                     path: this.path,
                     name: this.name,

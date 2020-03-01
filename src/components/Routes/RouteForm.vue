@@ -121,7 +121,7 @@
 
                 if (this.isValid()) {
                     this.loading = true;
-                    this.$store.dispatch(this.update ? "updateRoute" : "addRoute", {
+                    this.$store.dispatch("ModuleRoute/" + (this.update ? "updateRoute" : "addRoute"), {
                         name: this.name,
                         path: this.path,
                         method: this.method.id,

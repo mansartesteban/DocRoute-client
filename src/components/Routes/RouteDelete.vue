@@ -45,7 +45,7 @@
         methods: {
             deleteRoute(id) {
                 this.loading = true
-                this.$store.dispatch("deleteRoute", {
+                this.$store.dispatch("ModuleRoute/deleteRoute", {
                     id: id
                 })
                 .then(success => {

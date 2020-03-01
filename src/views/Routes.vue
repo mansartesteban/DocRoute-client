@@ -17,12 +17,12 @@
             RouteList: () => import("@/components/Routes/RouteList")
         },
         created() {
-            this.$store.dispatch("listRoutes")
+            this.$store.dispatch("ModuleRoute/listRoutes")
             this.$store.dispatch("listMethods")
         },
         computed: {
             routes() {
-                return this.$store.state.routes
+                return this.$store.state.ModuleRoute.routes
             }
         }
     }

@@ -11,14 +11,8 @@ export default {
   components: {
   },
   computed: {
-    myCount: function () {
-      return this.$store.state.myCount
-    }
   },
   methods: {
-    increase: function () {
-      this.$store.commit("toto")
-    }
   }
 
 };
