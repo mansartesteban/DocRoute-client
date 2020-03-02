@@ -57,7 +57,7 @@
                 return this.routes.length
             },
             routesToDisplay: function () {
-                return this.searchInArray(this.routes, this.search)
+                return this.searchInArray(this.routes, this.search, ["name", "path", "method.label"])
             }
         },
         data: () => {
