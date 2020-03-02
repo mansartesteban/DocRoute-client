@@ -1,10 +1,10 @@
 <template>
-    <div>Components view</div>
+    <div>Entities View</div>
 </template>
 
 <script>
     export default {
-        name: "Components"
+        name: "Entities"
     }
 </script>
 

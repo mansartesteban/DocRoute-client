@@ -22,7 +22,7 @@
         },
         computed: {
             routes() {
-                return this.$store.state.ModuleRoute.routes
+                return this.$store.getters["ModuleRoute/getRoutes"]
             }
         }
     }

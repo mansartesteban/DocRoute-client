@@ -11,17 +11,31 @@ const ModuleRoute = {
             let index = -1
             let i = 0
             for (let route of state.routes) {
-                i++
                 if (route.id == payload.id) {
                     index = i
                 }
+                i++
             }
             state.selectedRoute = index
         }
     },
     getters: {
         getSelectedRoute: (state) => {
-            return state.routes[state.selectedRoute - 1]
+            return (state.selectedRoute != -1) ? state.routes[state.selectedRoute] : null
+        },
+        getRoutes: (state) => {
+            return state.routes
+        },
+        getRoute: (state, id) => {
+            let i = 0
+            let index = -1
+            for (let route of state.routes) {
+                if (route.id == id) {
+                    index = i
+                }
+                i++;
+            }
+            return (index != -1) ? state.routes[index] : null
         }
     },
     actions: {

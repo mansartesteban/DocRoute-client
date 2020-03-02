@@ -17,6 +17,9 @@ export default new Vuex.Store({
     mutations: {
     },
     getters: {
+        getMethods: (state) => {
+            return state.dictionary.methods
+        }
     },
     actions: {
         listMethods({commit, state}) {

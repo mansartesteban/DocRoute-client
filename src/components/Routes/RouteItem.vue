@@ -4,8 +4,9 @@
             dense
             width="230"
             tile
-            class="mb-3"
+            class="mb-3 grey darken-3"
             :class="selected?'selected':''"
+            @click="$store.commit('ModuleRoute/selectRoute', {id:id})"
         >
             <v-toolbar
                 color="primary"
@@ -13,7 +14,6 @@
                 dense
                 height="32"
                 :title="name"
-               @click="$store.commit('ModuleRoute/selectRoute', {id:id})"
             >
 
 
@@ -101,6 +101,11 @@
 </script>
 
 <style scoped>
+
+    .route-item {
+        background: #444;
+    }
+
     .route-item .route-item-content {
         position: relative;
     }

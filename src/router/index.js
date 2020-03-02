@@ -11,8 +11,8 @@ const routes = [
     children: [
       {
         path: "benchwork-components",
-        name: "components",
-        component: () => import('@/views/Components')
+        name: "components-benchwork",
+        component: () => import('@/views/ComponentsBenchwork')
       },
       {
         path: "routes",
@@ -29,6 +29,16 @@ const routes = [
               component: () => import("@/views/Routes/RoutesShow")
             }
           ]
+      },
+      {
+        path: "entites",
+        name: "entities",
+        component: () => import("@/views/Entities")
+      },
+      {
+        path: "components",
+        name: "components",
+        component: () => import("@/views/Components")
       }
     ]
 

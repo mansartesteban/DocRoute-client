@@ -22,7 +22,6 @@
         },
         computed: {
             route() {
-                // console.log(this.$store.getters.getSelectedRoute)
                 return this.$store.getters["ModuleRoute/getSelectedRoute"]
             }
         },
@@ -36,5 +35,6 @@
 <style scoped>
     .route-index {
         background: #1e1e1e;
+        border: 1px solid #333
     }
 </style>
