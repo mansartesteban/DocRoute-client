@@ -85,6 +85,6 @@
 
     .route-list-item {
         overflow-y: overlay;
-        max-height: 86%;
+        max-height: 84.5%;
     }
 </style>
