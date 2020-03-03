@@ -97,20 +97,20 @@ export default {
                                 concatDatas += getNestedProperty(elem, prop).toLowerCase()
                             } else {
                                 if (Object.prototype.hasOwnProperty.call(elem, prop)) {
-                                    if (typeof elem[prop] == "string") {
-                                        concatDatas += elem[prop].toLowerCase()
-                                    } else {
-                                        concatDatas += elem[prop]
-                                    }
+                                    concatDatas += (typeof elem[prop] == "string") ? elem[prop].toLowerCase() : concatDatas += elem[prop]
                                 }
                             }
                         }
-                        let splittedPipes = searchValue.split("|")
 
-                        return splittedPipes.some(function (elemPipe) {
+                        /*
+                        Split search input value by spaces and pipes.
+                            Prior the pipes, if at least one element correspond to it, return the value
+                            For each splitted pipes chunk of string, split element by space.
+                            If all element correspond to splitted spaces chunk string, return the value
+                         */
+                        return searchValue.split("|").some(function (elemPipe) {
                             if (elemPipe.length > 0) {
-                                let splittedSpaces = elemPipe.split(" ")
-                                return splittedSpaces.every(function (elemSpace) {
+                                return elemPipe.split(" ").every(function (elemSpace) {
                                     return concatDatas.indexOf(elemSpace.toLowerCase()) !== -1
                                 })
                             }
