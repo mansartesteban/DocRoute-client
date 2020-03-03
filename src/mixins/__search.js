@@ -25,25 +25,44 @@ export default {
          *          ["label", "friends.jobs.label"] => in case you want to catch a nested property object,
          *              you can deal with it by passing the full path access to this property as if you were
          *              accessing it in pure JavaScript
+         *              If the nested property is on an object inside an array, take the
          * @returns *Elements of 'array' or []
          */
+
+        // Todo : loop on array if nested object is in array
         searchInArray: (array = [], searchValue = "", properties = []) => {
             function getNestedProperty(object = null, prop = "", types = ["string", "number"]) {
                 if (object || undefined && prop || null) {
-                    if (Array.isArray(object)) {
-                        object = object[0]
-                    }
+
                     if (prop.includes(".")) {
                         let splittedProps = prop.split(".")
                         let firstProp = splittedProps.shift()
                         prop = splittedProps.join(".")
-                        if (Object.prototype.hasOwnProperty.call(object, firstProp)) {
-                            return getNestedProperty(object[firstProp], prop)
+                        if (Array.isArray(object)) {
+                            for (let element of object) {
+                                if (Object.prototype.hasOwnProperty.call(element, firstProp)) {
+                                    return getNestedProperty(element[firstProp], prop)
+                                }
+                            }
+                        } else {
+                            if (Object.prototype.hasOwnProperty.call(object, firstProp)) {
+                                return getNestedProperty(object[firstProp], prop)
+                            }
                         }
                     } else {
-                        if (Object.prototype.hasOwnProperty.call(object, prop)) {
-                            if (types.indexOf(typeof object[prop]) !== -1) {
-                                return object[prop]
+                        if (Array.isArray(object)) {
+                            for (let element of object) {
+                                if (Object.prototype.hasOwnProperty.call(element, prop)) {
+                                    if (types.indexOf(typeof element[prop]) !== -1) {
+                                        return element[prop]
+                                    }
+                                }
+                            }
+                        } else {
+                            if (Object.prototype.hasOwnProperty.call(object, prop)) {
+                                if (types.indexOf(typeof object[prop]) !== -1) {
+                                    return object[prop]
+                                }
                             }
                         }
                     }
@@ -82,7 +101,17 @@ export default {
                                 }
                             }
                         }
-                        return (concatDatas.indexOf(searchValue.toLowerCase()) !== -1)
+                        let splittedPipes = searchValue.split("|")
+
+                        return splittedPipes.some(function (elemPipe) {
+                            if (elemPipe.length > 0) {
+                                let splittedSpaces = elemPipe.split(" ")
+                                return splittedSpaces.every(function (elemSpace) {
+                                    return concatDatas.indexOf(elemSpace.toLowerCase()) !== -1
+                                })
+                            }
+                            return false;
+                        })
                     })
                 }
             } else {
