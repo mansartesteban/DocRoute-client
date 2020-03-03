@@ -81,7 +81,7 @@
         },
         computed: {
             methods: function () {
-                return this.$store.state.dictionary.methods
+                return this.$store.getters["getMethods"]
             }
         },
         data: () => {
