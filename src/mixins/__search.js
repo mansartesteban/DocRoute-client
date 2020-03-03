@@ -39,11 +39,13 @@ export default {
                         let firstProp = splittedProps.shift()
                         prop = splittedProps.join(".")
                         if (Array.isArray(object)) {
+                            let concatArr = ""
                             for (let element of object) {
                                 if (Object.prototype.hasOwnProperty.call(element, firstProp)) {
-                                    return getNestedProperty(element[firstProp], prop)
+                                    concatArr += getNestedProperty(element[firstProp], prop)
                                 }
                             }
+                            return concatArr;
                         } else {
                             if (Object.prototype.hasOwnProperty.call(object, firstProp)) {
                                 return getNestedProperty(object[firstProp], prop)
@@ -51,13 +53,15 @@ export default {
                         }
                     } else {
                         if (Array.isArray(object)) {
+                            let concatArr = ""
                             for (let element of object) {
                                 if (Object.prototype.hasOwnProperty.call(element, prop)) {
                                     if (types.indexOf(typeof element[prop]) !== -1) {
-                                        return element[prop]
+                                        concatArr += element[prop]
                                     }
                                 }
                             }
+                            return concatArr
                         } else {
                             if (Object.prototype.hasOwnProperty.call(object, prop)) {
                                 if (types.indexOf(typeof object[prop]) !== -1) {
