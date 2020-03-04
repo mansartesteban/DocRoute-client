@@ -1,4 +1,5 @@
 import Axios from "axios";
+import SearchMixin from "./../../mixins/__search"
 
 const ModuleRoute = {
     namespaced: true,
@@ -26,7 +27,7 @@ const ModuleRoute = {
         getRoutes: (state) => {
             return state.routes
         },
-        getRoute: (state, id) => {
+        getRoute: (state) => (id) => {
             let i = 0
             let index = -1
             for (let route of state.routes) {
@@ -36,6 +37,16 @@ const ModuleRoute = {
                 i++;
             }
             return (index != -1) ? state.routes[index] : null
+        },
+        getNestedRoutes: (state, getters) => (id) => {
+            let route = getters.getRoute(id)
+            let routePath = route.path
+
+            let childRoutes = state.routes.filter((routeInList) => {
+                return routeInList.path.startsWith(routePath)
+            })
+
+            return childRoutes
         }
     },
     actions: {

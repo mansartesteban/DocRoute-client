@@ -6,10 +6,17 @@
             <method :method="route.method[0].label"></method>
 
             <h1 class="title mt-3">Routes enfant</h1>
+
+
             <div class="d-flex flex-row flex-wrap">
-                <!--<route-item class="mr-3"></route-item>-->
-                <!--<route-item class="mr-3"></route-item>-->
-                <!--<route-item></route-item>-->
+                <route-item
+                        class="mr-3"
+                        v-for="route in nestedRoutes"
+                        :path="route.path"
+                        :name="route.name"
+                        :methods="route.method"
+                        :id="route.id"
+                ></route-item>
             </div>
         </div>
     </v-layout>
@@ -23,6 +30,9 @@
         computed: {
             route() {
                 return this.$store.getters["ModuleRoute/getSelectedRoute"]
+            },
+            nestedRoutes() {
+                return this.$store.getters["ModuleRoute/getNestedRoutes"](this.route.id)
             }
         },
         components: {
