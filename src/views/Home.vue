@@ -5,13 +5,9 @@
         <v-content>
             <v-container
                     fluid
-                    fill-height
-            >
-
+                    fill-height>
                 <router-view></router-view>
-
             </v-container>
-
         </v-content>
     </v-layout>
 </template>

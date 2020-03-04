@@ -103,7 +103,7 @@
 <style scoped>
 
     .route-item {
-        background: #444;
+        /*background: #444;*/
     }
 
     .route-item .route-item-content {
